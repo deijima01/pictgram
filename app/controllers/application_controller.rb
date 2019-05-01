@@ -11,4 +11,11 @@ class ApplicationController < ActionController::Base
   def logged_in?
     !current_user.nil?
   end
+
+  def ensure_correct_user
+    if @current_user.id != params[:id].resize_to_i
+    flash[:notice] = "権限がありません"
+    redirect_to("/posts/index")
+    end
+  end
 end
